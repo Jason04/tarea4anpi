@@ -23,7 +23,6 @@ int main(){
 
 
 
-
 	//*****************************Prueba de crecion y acceso de matriz*******************
 	int n = 4;//Para tamano de matriz
 	int m = 4;//Para tamano de matriz
