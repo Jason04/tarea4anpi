@@ -31,9 +31,11 @@ int main(){
 
 	A[0][0] = 1; //Asignar valor a una posicion de la matriz
 
+	A.printmatrix(); //Imprimir la matrix
+	
 	int M00 = A[0][0]; //Acceder al valor de una posicion de la matriz 
 
-	std::cout<<"Matrix[0][0]= "<<M00<<std::endl;//muestra la posicon 0,0 de la matriz A
+	std::cout<<std::endl<<"Matrix[0][0]= "<<M00<<std::endl;//muestra la posicon 0,0 de la matriz A
 
 	//******************************Fin prueba creacion y acceso de matriz*****************
 }

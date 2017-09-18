@@ -124,7 +124,7 @@ namespace anpi
     bool operator!=(const Matrix<T>& other) const;
     
     /// Return pointer to a given row
-    inline T* operator[](const size_t row) {return _data + row*_cols;}
+    inline T* operator[](const size_t row) { return _data + row*_cols;}
 
     /// Return read-only pointer to a given row
     const T* operator[](const size_t row) const {return _data + row*_cols;}
@@ -149,6 +149,20 @@ namespace anpi
      */
     void allocate(const size_t row,
 		  const size_t col);
+    
+    //Permite imprimir la matrix
+    void printmatrix() const {
+            for (size_t i = 0; i < _rows; ++i) {
+                std::cout <<" " ;
+                for (size_t j = 0; j < _cols; ++j) {
+                    std::cout << *(_data + (i*_cols + j));// print matrix
+                    if(j+1 != _cols){
+                        std::cout <<",";
+                    }
+                }
+                std::cout <<" "<<std::endl;
+            }
+       }
 
     /**
      * Fill all elements of the matrix with the given value
