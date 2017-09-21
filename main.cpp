@@ -13,6 +13,7 @@ Alumnos:
 #include <exception>
 #include <cstdlib>
 #include "Matrix.hpp"
+#include "lucrout.h"
 int main(){
 
 
@@ -23,19 +24,43 @@ int main(){
 
 
 
-	//*****************************Prueba de crecion y acceso de matriz*******************
-	int n = 4;//Para tamano de matriz
+	/*  Prueba de crecion y acceso de matriz */
+	
+	// anpi::Matrix<float> A = { {1.f,2.f,3.f,4.f},
+	// 						   {5.f,6.f,7.f,8.f},
+	// 						   {9.f,10.f,11.f,12.f} };
+
+	//A[0][0] = 1; //Asignar valor a una posicion de la matriz
+
+	//A.printmatrix(); //Imprimir la matrix
+	
+	//int M00 = A[0][0]; //Acceder al valor de una posicion de la matriz 
+
+	/* Fin prueba creacion y acceso de matriz*/
+
+   //***************************************************************************//
+
+	/* Prueba descomposion LU*/
+
+	/* anpi::Matrix<float> A = { {1.f,2.f,3.f,4.f},
+	 						   {5.f,6.f,7.f,8.f},
+	 						   {9.f,10.f,11.f,12.f} };
+
+	int n = 3;//Para tamano de matriz
 	int m = 4;//Para tamano de matriz
 
-	anpi::Matrix<float> A(n,m,0.f);// Creacion de la matrix A nxm
+	anpi::Matrix<float> LU(n,m,0.f);// Creacion de la matrix LU nxm, llena de ceros
 
-	A[0][0] = 1; //Asignar valor a una posicion de la matriz
 
-	A.printmatrix(); //Imprimir la matrix
+
+    lucrout<float>CLU;//Para usar metodo de crout
 	
-	int M00 = A[0][0]; //Acceder al valor de una posicion de la matriz 
+	CLU.lu(A, LU);//Llamada a la descomposion LU
 
-	std::cout<<std::endl<<"Matrix[0][0]= "<<M00<<std::endl;//muestra la posicon 0,0 de la matriz A
+	LU.printmatrix();//Muestra resultado de la descomposion */
 
-	//******************************Fin prueba creacion y acceso de matriz*****************
+	/* Fin prueba descomposion LU */
+
+
+
 }

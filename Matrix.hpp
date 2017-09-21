@@ -152,8 +152,10 @@ namespace anpi
     
     //Permite imprimir la matrix
     void printmatrix() const {
+            //Se recorren las filas
             for (size_t i = 0; i < _rows; ++i) {
                 std::cout <<" " ;
+                //Se recorren las columnas
                 for (size_t j = 0; j < _cols; ++j) {
                     std::cout << *(_data + (i*_cols + j));// print matrix
                     if(j+1 != _cols){

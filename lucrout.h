@@ -1,3 +1,15 @@
+/*
+lucrout.cpp:Contiene la implementacion
+            para la solucion de ecuaciones
+            usando descomposion LU Crout. 
+Fecha:18/09/2017
+Curso: Analisis numerico para ingenieria
+Asignacion: Tarea 4
+Alumnos:
+  Irene
+  Gabriel Alfaro Herrera
+  Jason Salazar Gonzalez
+*/
 #ifndef LUCROUT_H
 #define LUCROUT_H
 #include "Matrix.hpp"
