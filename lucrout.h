@@ -42,7 +42,7 @@ public:
            }
         }
     }
-/*
+
     //Permite encontrar la solucion a un sistema de ecuaciones dado.
     bool solveLU(anpi::Matrix<T>& A, std::vector<float>& x, const std::vector<float>& b){
 
@@ -52,7 +52,7 @@ public:
 
         solveCrout(A.rows(),LU,b,x);// se realiza la sustitucion de variables
 
-        A.printmatrix(A,"A");//Se muestra la matrix A
+     //   A.printmatrix(A,"A");//Se muestra la matrix A
 
         std::cout<<"Vector b"<<std::endl;//Se muestra el vector b
 
@@ -67,7 +67,7 @@ public:
         std::cout<<""<<std::endl;
 
 
-        LU.printmatrix(LU,"LU");// Se muestra la matriz descompuesta
+     //   LU.printmatrix(LU,"LU");// Se muestra la matriz descompuesta
 
         std::cout<<"Solutions"<<std::endl;// Se muestra la solucion del sistema
         for (int i = 0; i < A.rows(); ++i) {
@@ -78,6 +78,7 @@ public:
         return 1;
 
     }
+
     //Permite hacer sustitucion hacia a delante y hacia atras para encontrar
     //la solucion a un sistema de ecuaciones
    void solveCrout(int n, anpi::Matrix<T>& LU,const std::vector<float>& b,std::vector<float>& x){
@@ -98,7 +99,7 @@ public:
           x[i]=(y[i]-sum);
        }
    }
-   //Permite reeconstruir la matrix A, a partir de su descomposicion LU.
+  /* //Permite reeconstruir la matrix A, a partir de su descomposicion LU.
    //Ademas se obtiene la norma de la diferencia entre la matrix A y su reconstruccion
    void testLU(anpi::Matrix<T>& A, anpi::Matrix<T>& LU){
        int n = A.rows();
