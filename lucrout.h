@@ -99,8 +99,8 @@ public:
 
           }
        //Se muestra la matrix reeconstruida
-      //std::cout<<"Reconstruccion matriz A:"<<std::endl;
-      //AReconstruida.printmatrix();
+      std::cout<<"Reconstruccion matriz A:"<<std::endl;
+      AReconstruida.printmatrix();
 
       return norma(A,AReconstruida);
    }

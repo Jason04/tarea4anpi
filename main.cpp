@@ -19,10 +19,10 @@ int main(){
 	/* Pruebas: Descomposicióm LU, Método de Crout*/
 
     testLU tl ;//Creación del test Descomposición LU, Método de Crout
-    //tl.test(1);//Prueba matrix 10x10
+    tl.test(1);//Prueba matrix 10x10
     //tl.test(3);//Prueba matrix 5x5
     //tl.test(3);//Prueba matrix 4x4
-    tl.test(4);//Prueba matrix mal condicionada
+   // tl.test(4);//Prueba matrix mal condicionada
 
     /*Fin Pruebas: Descomposicióm LU, Método de Crout*/
 
