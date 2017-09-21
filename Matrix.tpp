@@ -205,12 +205,12 @@ namespace anpi
   Matrix<T> operator*(const Matrix<T>& a, const Matrix<T>& b){
       assert( (a.cols()==b.rows()) );
 
-      Matrix<T> c(a.rows(),b.cols(),Matrix<T>::DoNotInitialize);
-
+      Matrix<T> c(a.rows(),b.cols(),0.0);
       for(int i = 0; i < a.rows(); i++){
         for(int j = 0; j < b.cols(); j++){
           for(int k = 0; k < a.cols(); k++){
             c[i][j] += a[i][k]*b[k][j];
+            /*std::cout<<"Mat1 en posicion: "<<i<<","<<k<<" es: "<< a[i][k]<<" * "<<"Mat2 en posicion: "<<k<<","<<j<<" es: "<< b[k][j]<<" Resultado: "<<c[i][j]<<std::endl;*/
           }
         }
       }

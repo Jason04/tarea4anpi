@@ -24,7 +24,7 @@ public:
     // En el QR se crea una matrix ortogonal Q y una matriz triangulas superior R
     void qr( anpi::Matrix<T>& A, anpi::Matrix<T>& Q , anpi::Matrix<T>& R){
 
-        int n = A.rows();
+        /*int n = A.rows();
         std::vector <T> X(n);        
         std::vector <T> U(n);        
         std::vector <T> V(n);
@@ -36,11 +36,70 @@ public:
         obtenerV(V, U, magnitudU); //V = U / ||U||
         obtenerQn(Qn, V); //I -2VVt
         obtenerRn(Qn,A, Rn);
+        obtenerAPrima(Rn);
 
         //std::cout<<"Alpha: "<< alpha<<std::endl;
         //std::cout<<"||U||: "<< magnitudU<<std::endl;
         //Qn.printmatrix();
+        Rn.printmatrix();*/
 
+        anpi::Matrix<T> Aaux = A;
+
+        for (int i = A.rows(); i >= 2; --i){
+        
+        std::vector <T> X(Aaux.rows()); 
+        anpi::Matrix<T> Qn(Aaux.rows(),Aaux.rows(),0.0);
+        anpi::Matrix<T> QExtendida(A.rows(),A.rows(),0.0);
+        anpi::Matrix<T> Rn(Aaux.rows(),Aaux.rows(),0.0); 
+
+        std::vector <T> U(Aaux.rows());        
+        std::vector <T> V(Aaux.rows());
+        
+        T alpha = obtenerPrimerColumnayMagnitud(Aaux, X);      //X y ||X||
+        T magnitudU = obtenerUMagnitud(X, alpha, U);        //U y ||U||
+        obtenerV(V, U, magnitudU);                          //V = U / ||U||
+        obtenerQn(Qn, V);                                   //I -2VVt
+        extenderQ(Qn, QExtendida);
+        if(i == A.rows()){
+          Q = QExtendida;
+        }
+        else{
+          Q = Q * QExtendida;
+        }
+
+        /*QExtendida.printmatrix();
+        std::cout<<"Qextendida"<<std::endl;
+        Q.printmatrix();
+        std::cout<<"Q"<<std::endl;*/
+
+        obtenerRn(QExtendida,A, Rn);                                //R = Qt*A
+        guardarAaux(Aaux, Rn);
+        //Aaux.printmatrix();
+        //std::cout<<std::endl;
+        }
+    }
+    void extenderQ(anpi::Matrix<T>& Q,anpi::Matrix<T>& Qe){
+      for (int i = Qe.rows()-1; i >= 0; --i){
+        for (int j = Qe.rows()-1; j >= 0; --j){
+          if(i==j){
+            Qe[i][j] = 1;            
+          }
+        }
+      }
+      for (int i = Qe.rows()-1,  k = Q.rows()-1; k >= 0; --i,--k){
+        for (int j = Qe.rows()-1,  z = Q.rows()-1; z >= 0; --j,--z){
+          Qe[i][j] = Q[k][z];
+        }
+      }
+    }
+    void guardarAaux(anpi::Matrix<T>& aux,anpi::Matrix<T>& rn){
+      anpi::Matrix<T> temp(aux.rows()-1,aux.rows()-1,0.0);
+      aux = temp;
+      for (int i = 1; i < rn.rows(); ++i){
+        for (int j = 1; j < rn.rows(); ++j){
+          aux[i-1][j-1] = rn[i][j];
+        }
+      }
     }
 
     T obtenerPrimerColumnayMagnitud(anpi::Matrix<T>& A, std::vector<T>& X){
@@ -86,14 +145,10 @@ public:
       }
     }
 
-    void obtenerRn(anpi::Matrix<T>& Qn, anpi::Matrix<T>& A, anpi::Matrix<T>& Rn){
+    void obtenerRn(anpi::Matrix<T>& qn, anpi::Matrix<T>& A, anpi::Matrix<T>& Rn){
         anpi::Matrix<T> Qt(A.rows(),A.cols(),0.0);
-        transponer(Qn, Qt);
-        //Qt.printmatrix();
+        transponer(qn, Qt);
         Rn = Qt * A;
-        Rn.printmatrix();
-
-
     }
     void transponer(anpi::Matrix<T>& Qn, anpi::Matrix<T>& Qt){
       for (int i = 0; i < Qn.rows(); ++i){
