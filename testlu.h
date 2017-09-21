@@ -28,15 +28,15 @@ public:
                  break;
               case 2 :
                  std::cout<<"Matrix 5x5------------------------"<<std::endl;
-                 test2();
+                 //test2();
                  break;
               case 3 :
                   std::cout<<"Matrix 4x4------------------------"<<std::endl;
-                //  test3();
+                  test3();
                    break;
               default :
                  std::cout<<"Matrix Mal Condicionada------------------------"<<std::endl;
-                // test4();
+                 test4();
                  break;
         }
         std::cout<<"---------------------Fin Test "<<type<<"------------------------"<<std::endl;
@@ -92,87 +92,22 @@ private:
 
      }*/
      //Prueba del metodo de Croat con una matrix de 5x5
-     void test2(){
-      //Se crea matrix de 4x4
-           anpi::Matrix<float> A = { {1, -2, 2 ,-3},
-                            {3, 4, -1, 1},
-                            {2, -3,  2,-1},
-                            {1, 1,-3, -2}
-                          };
-           int n = A.rows();//Para tamano de matriz
-           int m = A.cols();//Para tamano de matriz
+   /*  void test2(){
 
+         int n = 5; //# of rows
+         int m = 5; //# of colums
+
+          //Data to fill matrix A
+         float coe_a[n*m]={2,1,1,3,2,
+                       1.,2.,2.,1.,1.,
+                       1.,2.,9.,1.,5.,
+                       3.,1.,1.,7.,1.,
+                       2.,1.,5.,1.,8.};
 
 
           std::vector <float> b(n); //vector b
-          int aux2[] = {-2,4,3,-5};
+          int aux2[] = {-2,4,3,-5,1};
           b.insert (b.begin(), aux2, aux2+5);
-
-          std::vector <float> x(n); //vector x
-
-
-          lucrout<float>CLU;
-          //Se resuelve el sistema de ecuaciones
-          CLU.solveLU(A,x,b);
-
-
-       // anpi::Matrix<float> LU(A.rows(),A.rows(),0.0);// Create LU matrix
-
-       // CLU.lu(A,LU);
-        //Verifiacion de funciones
-       // CLU.testLU( A, LU);
-     }
-     //Prueba del metodo de Croat con una matrix de 4x4
-    /* void test3(){
-         int n = 4; //# of rows
-         int m = 4; //# of colums
-
-          //Data to fill matrix A
-         float coe_a[n*m]={ 1, -2, 2 ,-3,
-                            3, 4, -1., 1,
-                            2, -3,  2,-1,
-                            1, 1,-3, -2};
-
-          std::vector <float> b(n); //vector b
-          float aux3 [] ={15,-6,17,-7};
-          b.insert (b.begin(), aux3, aux3+4);
-
-
-          std::vector <float> x(n); //vector x
-
-          anpi::Matrix<float> A(n,m,0.0);// Create A matrix nxm
-
-         //Fill A matrix
-         for (int i = 0; i < n; ++i) {
-             for (int j = 0; j < m; ++j) {
-                 A[i][j] = coe_a[n*i+j] ;// fill matrix with coe_a
-             }
-         }
-
-        lucrout<float>CLU;
-        //Se resuelte el sistema de ecuaciones
-        CLU.solveLU(A,x,b);
-
-
-        anpi::Matrix<float> LU(A.rows(),A.rows(),0.0);// Create LU matrix
-
-        CLU.lu(A,LU);
-        //Verificar funciones
-        CLU.testLU( A, LU);
-     }
-     //Prueba del metodo de Croat con una matrix mal condicionada
-     void test4(){
-         int n = 2; //# of rows
-         int m = 2; //# of colums
-
-          //Data to fill matrix A
-         float coe_a[n*m]={ 3, 4,
-                            3,4.00001
-                          };
-
-          std::vector <float> b(n); //vector b
-          float aux4[] = {7,7.00001};
-          b.insert (b.begin(), aux4, aux4+2);
 
 
           std::vector <float> x(n); //vector x
@@ -194,9 +129,104 @@ private:
         anpi::Matrix<float> LU(A.rows(),A.rows(),0.0);// Create LU matrix
 
         CLU.lu(A,LU);
-        //Verificacion de funciones
+        //Verifiacion de funciones
         CLU.testLU( A, LU);
-     }*/
+     }
+     */
+
+     //Prueba del metodo de Croat con una matrix de 4x4
+    void test3(){
+           //Se crea matrix de 4x4
+           anpi::Matrix<float> A = { {1.f, -2.f, 2.f ,-3.f},
+                            {3.f, 4.f, -1.f, 1.f},
+                            {2.f, -3.f,  2.f,-1.f},
+                            {1.f, 1.f,-3.f, -2.f}
+                          };
+           int n = A.rows();//Para tamano de matriz
+           int m = A.cols();//Para tamano de matriz
+
+
+          std::vector <float> b(n); //vector b
+         // float aux2[] = {15,-6,17,-7};
+          float aux2[] = {-2.f,4.f,3.f,-5.f};
+          b.insert (b.begin(), aux2, aux2+4);
+
+          std::vector <float> x(n); //vector x
+
+
+          lucrout<float>CLU;
+          //Se resuelve el sistema de ecuaciones
+          CLU.solveLU(A,x,b);
+
+
+           A.printmatrix();//Se muestra la matrix A
+
+           std::cout<<"Vector b"<<std::endl;//Se muestra el vector b
+
+           std::cout<<"b = {";
+           for (int i = 0; i < A.rows(); ++i) {
+              std::cout<<b[i];
+              if(i<A.rows()-1){
+                std::cout<<",";
+              }
+            }
+            std::cout<<"}"<<std::endl;
+            std::cout<<""<<std::endl;
+             std::cout<<"Solutions"<<std::endl;// Se muestra la solucion del sistema
+             for (int i = 0; i < A.rows(); ++i) {
+              std::cout<<" x"<<i<<"= "<<x[i]<<std::endl;
+              }
+        //Prueba de resonstruccion       
+        anpi::Matrix<float> LU(A.rows(),A.cols(),0.0);// Create LU matrix
+         CLU.lu(A,LU);
+        //Verifiacion de funciones
+       float norma = CLU.testLU( A, LU);
+       std::cout<<"Norma de la diferencia entre A y su reconstruccion:"<<std::endl;
+       //Se muestra la norma de la diferencia entre la matrix A y su reconstruccion
+       std::cout<<"       Norma = "<<norma<<std::endl;
+
+
+        
+     }
+     //Prueba del metodo de Croat con una matrix mal condicionada
+      void test4(){
+        //Se crea matrix de 4x4
+           anpi::Matrix<float> A = { { 1.f, 0.5f,1.f/3.f},
+                                     {0.5f,1.f/3.f,1.f/4.f},
+                                     {1.f/3.f,1.f/4.f,1.f/5.f}};
+           int n = A.rows();//Para tamano de matriz
+           int m = A.cols();//Para tamano de matriz
+           std::cout<<"Matirz A:"<<std::endl;
+           A.printmatrix();//Se muestra la matrix A
+
+           std::vector <float> b(n); //vector b
+           float aux4[] = {3.0,2.1,4.0};
+           b.insert (b.begin(), aux4, aux4+3);
+
+
+          std::vector <float> x(n); //vector x
+
+         lucrout<float>CLU;
+         //Se resuelve el sistema de ecuaciones
+         CLU.solveLU(A,x,b);
+
+          std::cout<<""<<std::endl;
+          std::cout<<"Solutions"<<std::endl;// Se muestra la solucion del sistema
+          for (int i = 0; i < A.rows(); ++i) {
+            std::cout<<" x"<<i<<"= "<<x[i]<<std::endl;
+          }
+
+
+        anpi::Matrix<float> LU(A.rows(),A.rows(),0.0);// Create LU matrix
+
+        CLU.lu(A,LU);
+        
+        //Verifiacion de funciones
+        float norma = CLU.testLU( A, LU);
+        std::cout<<"Norma de la diferencia entre A y su reconstruccion:"<<std::endl;
+        //Se muestra la norma de la diferencia entre la matrix A y su reconstruccion
+        std::cout<<"       Norma = "<<norma<<std::endl;
+     }
 
 
 };
