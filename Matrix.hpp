@@ -227,6 +227,10 @@ namespace anpi
 
   // External arithmetic operators
   template<class T>
+  Matrix<T> operator*(const Matrix<T>& a,
+              const Matrix<T>& b);
+
+  template<class T>
   Matrix<T> operator+(const Matrix<T>& a,
 		      const Matrix<T>& b);
 
