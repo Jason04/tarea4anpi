@@ -1,0 +1,2 @@
+1) sudo g++ -std=c++11 -o exe main.cpp
+2) sudo ./exe

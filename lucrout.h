@@ -24,7 +24,7 @@ public:
     // A es la matriz de coefienciente del sistema
     // En el LU se almace la matriz L y la U
     void lu( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
-
+        const double tiny = 1.0e-30;
         int n = A.rows();
         T sum = 0;    
         for(int k=0;k<n;++k){ //Se forma la parte L
@@ -38,7 +38,12 @@ public:
            }
            for(int j=k+1;j<n;++j){//Se forma la parte U
                sum=0.;
-              for(int p=0;p<k;++p)sum+=LU[k][p]*LU[p][j];
+              for(int p=0;p<k;++p){
+                sum+=LU[k][p]*LU[p][j];
+              }
+              if(LU[k][k]== 0.0){
+                LU[k][k] = tiny;
+              }
               LU[k][j]=(A[k][j]-sum)/LU[k][k];
            }
         }
@@ -50,6 +55,10 @@ public:
         anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
 
         lu(A,LU);// Se descompone la matrix
+        std::cout<<"matriz LU para verificar"<<std::endl;
+        LU.printmatrix();
+        std::cout<<"********************************"<<std::endl;
+
 
         solveCrout(A.rows(),LU,b,x);// se realiza la sustitucion de variables
 

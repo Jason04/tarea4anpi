@@ -147,7 +147,7 @@ private:
      //Prueba del metodo de Croat con una matrix de 4x4
     void test3(){
            //Se crea matrix de 4x4
-           anpi::Matrix<float> A = { {1.f, -2.f, 2.f ,-3.f},
+           anpi::Matrix<float> A = { {0.f, -2.f, 2.f ,-3.f},
                             {3.f, 4.f, -1.f, 1.f},
                             {2.f, -3.f,  2.f,-1.f},
                             {1.f, 1.f,-3.f, -2.f}
