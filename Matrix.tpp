@@ -217,6 +217,20 @@ namespace anpi
       return c;
   }
 
+  template<class T>
+  std::vector<T> operator*(const Matrix<T>& a, const std::vector<T>& b){
+      assert( (a.cols() == b.size()) );
+
+      std::vector<T> c(b.size());
+      for(int i = 0; i < a.rows(); i++){
+        for(int j = 0; j < a.cols(); j++){
+            c[i] += a[i][j] * b[j];
+            /*std::cout<<"Mat1 en posicion: "<<i<<","<<k<<" es: "<< a[i][k]<<" * "<<"Mat2 en posicion: "<<k<<","<<j<<" es: "<< b[k][j]<<" Resultado: "<<c[i][j]<<std::endl;*/
+          }
+      }
+      return c;
+  }
+
   
   template<class T>
   Matrix<T> operator+(const Matrix<T>& a,

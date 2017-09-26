@@ -55,9 +55,7 @@ public:
         anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
 
         lu(A,LU);// Se descompone la matrix
-        std::cout<<"matriz LU para verificar"<<std::endl;
         LU.printmatrix();
-        std::cout<<"********************************"<<std::endl;
 
 
         solveCrout(A.rows(),LU,b,x);// se realiza la sustitucion de variables

@@ -12,6 +12,7 @@
 #include <cstring>
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 #include <initializer_list>
 
@@ -230,6 +231,9 @@ namespace anpi
   template<class T>
   Matrix<T> operator*(const Matrix<T>& a,
               const Matrix<T>& b);
+   template<class T>
+  std::vector<T> operator*(const Matrix<T>& a,
+              const std::vector<T>& b);
 
   template<class T>
   Matrix<T> operator+(const Matrix<T>& a,
