@@ -55,7 +55,6 @@ public:
           obtenerRn(QExtendida, A, Rn, Qtr);                   //R = Qt*A
           guardarAaux(Aaux, Rn);
         }
-        /*std::cout<<"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ out of for"<<std::endl;*/
         anpi::Matrix<T> Qt(A.rows(),A.rows(),0.0);
         transponer(Q, Qt);                                      //A partir de Q se obtiene Qt
 
@@ -171,7 +170,6 @@ public:
       std::cout<<"R matrix"<<std::endl;
       R.printmatrix();
       std::cout<<std::endl;*/
-
       return norma(A, Ar);
     }
     bool solveQR(anpi::Matrix<T>& A, std::vector<T>& x, const std::vector<T>& b){

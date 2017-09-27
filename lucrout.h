@@ -47,6 +47,34 @@ public:
               LU[k][j]=(A[k][j]-sum)/LU[k][k];
            }
         }
+    /*  int n = A.rows();
+      for (int j = 2; j < n; ++j){
+        LU[1][j] = LU[1][j]/LU[1][1];
+      }
+      double suma ;
+      for (int j = 2; j < n-1; ++j){
+        
+        for (int i = j; i < n; ++i){
+         suma = 0;
+          for (int k = 1; k < j-1; ++k){
+            suma=suma+LU[i][j]*LU[j][k];
+          }
+          LU[i][j] = LU[i][j] - suma;
+        }
+        for (int k = j+1; k < n; ++k){
+          suma=0;
+          for (int i = 1; i < j-1; ++i){
+            suma=suma+LU[j][i]*LU[i][k];
+          }
+          LU[j][k] = (LU[j][k]-suma)/LU[j][j];
+        }
+      }
+      for (int k = 1; k < n-1; ++k){
+        suma = suma + LU[n-1][k]*LU[k][n-1];
+      }
+      LU[n-1][n-1] = LU[n-1][n-1]-suma;*/
+      
+
     }
 
     //Permite encontrar la solucion a un sistema de ecuaciones dado.
@@ -55,6 +83,7 @@ public:
         anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
 
         lu(A,LU);// Se descompone la matrix
+       std::cout<<"LU"<<std::endl;
         LU.printmatrix();
 
 
