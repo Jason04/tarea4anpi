@@ -1,0 +1,30 @@
+Running 9 test cases...
+Entering test suite "Suites"
+Entering test suite "descomposicionLU"
+Entering test case "testLU1"
+Leaving test case "testLU1"; testing time: 318mks
+Entering test case "testLU2"
+unittest.cpp(27): error in "testLU2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
+Leaving test case "testLU2"; testing time: 330mks
+Entering test case "testLU3"
+Leaving test case "testLU3"; testing time: 232mks
+Leaving test suite "descomposicionLU"
+Entering test suite "reconstruccion"
+Entering test case "testreconstruccion1"
+Leaving test case "testreconstruccion1"; testing time: 218mks
+Entering test case "testreconstruccion2"
+unittest.cpp(60): error in "testreconstruccion2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
+Leaving test case "testreconstruccion2"; testing time: 284mks
+Entering test case "testreconstruccion3"
+Leaving test case "testreconstruccion3"; testing time: 228mks
+Leaving test suite "reconstruccion"
+Entering test suite "norma"
+Entering test case "testnorma1"
+Leaving test case "testnorma1"; testing time: 216mks
+Entering test case "testnorma2"
+unittest.cpp(93): error in "testnorma2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
+Leaving test case "testnorma2"; testing time: 301mks
+Entering test case "testnorma3"
+Leaving test case "testnorma3"; testing time: 118mks
+Leaving test suite "norma"
+Leaving test suite "Suites"
