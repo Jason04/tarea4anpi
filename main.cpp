@@ -14,10 +14,12 @@ Alumnos:
 #include <cstdlib>
 #include "TEST.h"
 int main(){
-    test t1;
+
+    
+   // test t1;
 
 	/* Pruebas: Descomposicióm LU, Método de Crout*/
-    t1.testLU1();
+   // t1.testLU1();
     //t1.testLU2();
     //t1.testLU3();
      //t1.testLU4();

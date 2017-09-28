@@ -21,26 +21,23 @@ class lucrout
 {
 public:
 
-    std::vector<T> indx;
+    std::vector<T> indx;//vector para almacenamiento de pivote
     
     //Permite realizar la decomposicion utlizando el metodo de Crout.
     // A es la matriz de coefienciente del sistema
     // En el LU se almace la matriz L y la U
     void lu( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
 
-      ////////////////////////////************************************/////////////////////
-        const double TINY=1.0e-40;
+        const double TINY=1.0e-40;//Un numero muy pequeno
         LU = A;
-        int n = A.rows();
-        int i,imax,j,k;
+        int n = A.rows(); //numero de filas
+        int i,imax,j,k; //variables necesarias para calculo
+                        // e indices
         double big,temp;
         std::vector <double> vv(n);
         double d = 1.0; 
-        
-       // std::vector <double> indx(n); //vector 
-        //indx.resize(n);
 
-        for (i=0;i<n;i++) {
+        for (i=0;i<n;i++) {//ciclo para buscar el pivote
           big=0.0;
           for (j=0;j<n;j++){
 
@@ -48,16 +45,15 @@ public:
               big = temp;
             }
           }
-          if (big == 0.0){ 
-            throw("Singular matrix in LUdcmp");
+          if (big == 0.0){//En caso de una matrix singular
+            std::cout<<"Matriz singular en descomposion LU"<<std::endl;
           }
           vv[i]=1.0/big;
         }
-
+        //Se realiza la descomposicion
         for (k=0; k<n; k++) { 
 
-          big=0.0;
-         // imax=k;          
+          big=0.0;          
           for (i = k; i<n; i++) {
 
             temp = vv[i]*std::abs(LU[i][k]);
@@ -89,54 +85,7 @@ public:
             }
           }
         }
-
-        //std::cout<<"deter: "<<det(LU)<<std::endl;
-    
-
-      ////////////////////*************************************///////////////////////////
-
-
-
-
-     
-
-    }
-
-    //Permite encontrar la solucion a un sistema de ecuaciones dado.
-   /* bool solveLU(anpi::Matrix<T>& A, std::vector<T>& x, const std::vector<T>& b){
-
-        anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
-
-        lu(A,LU);// Se descompone la matrix
-       //std::cout<<"LU"<<std::endl;
-        //LU.printmatrix();
-
-
-        solveCrout(A.rows(),LU,b,x);// se realiza la sustitucion de variables
-
-        return 1;
-    }
-
-    //Permite hacer sustitucion hacia a delante y hacia atras para encontrar
-    //la solucion a un sistema de ecuaciones
-   void solveCrout(int n, anpi::Matrix<T>& LU,const std::vector<T>& b,std::vector<T>& x){
-       T y[n];
-       T sum=0;
-       for(int i=0;i<n;++i){//Sustitucion hacia adelante
-            sum=0;
-          for(int k=0;k<i;++k){
-              sum+=LU[i][k] * y[k];
-          }
-          y[i]=(b[i]-sum)/LU[i][i];
-       }
-       for(int i=n-1;i>=0;--i){//Sustitucion hacia atras
-          sum=0;
-          for(int k=i+1;k<n;++k){
-              sum+=LU[i][k]*x[k];
-          }
-          x[i]=(y[i]-sum);
-       }
-   }*/
+  }
    //Permite reeconstruir la matrix A, a partir de su descomposicion LU.
    //Ademas se obtiene la norma de la diferencia entre la matrix A y su reconstruccion
    T testLU(anpi::Matrix<T>& A, anpi::Matrix<T>& LU){
@@ -183,15 +132,7 @@ public:
        return std::sqrt(sum);
    }
 
-  /*double det(anpi::Matrix<T>& LU){
-    double dd = d;
-    for (int i=0;i<LU.rows();i++){
-      dd *= LU[i][i];
-    }
-    return dd;
-  }*/
-
-  //Solucion de sistema de ecuaciones 
+  //Permite encontrar la solucion a un sistema de ecuaciones dado. 
   void solveLU(anpi::Matrix<T>& A, std::vector<T>& x, std::vector<T>& b){
     int i,ii=0,ip,j;
     int n = b.size();
@@ -202,9 +143,12 @@ public:
     lu(A,LU);// Se descompone la matrix
 
 
-    if (b.size() != n || x.size() != n){
-      throw("LUdcmp::solve bad sizes");
+    if (b.size() != n || x.size() != n){//comproobacion del tamano de los vectores
+      std::cout<<"Tamanos de los vectores no es correcto"<<std::endl;
     }
+
+    //Se realiza la sustitucion hacia adelante y
+    //sustitucion hacia atras
     for (i=0;i<n;i++){
      x[i] = b[i];
     }
@@ -230,17 +174,13 @@ public:
       x[i]=sum/LU[i][i];
     }
   }
-//solve con matrices
+//Metodo auxiliar que permite el calculo de la matrix inversa
 void solve(anpi::Matrix<T>& A,anpi::Matrix<T>& b, anpi::Matrix<T>& x){
-
-  //anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
-
-  //lu(A,LU);// Se descompone la matrix
-
   int n = b.rows();
   int i,j,m=b.cols();
+  //Se comprueba que los tamanos de las matrices coincidan
   if (b.rows() != n || x.rows() != n || b.cols() != x.cols()){
-    throw("LUdcmp::solve bad sizes");
+    std::cout<<"Los tamanos de la matriz no escorreto"<<std::endl;
   }
   std::vector <T> xx(n);
   indx = xx; 
@@ -255,9 +195,10 @@ void solve(anpi::Matrix<T>& A,anpi::Matrix<T>& b, anpi::Matrix<T>& x){
   }
 }
 
+//Dada una matriz permite encontrar su inversa
 void invert(anpi::Matrix<T>& A, anpi::Matrix<T>& Ai){
   int i,j;
- // ainv.resize(n,n);
+  //Se llena la diagonal de 1
   for (i=0;i<A.rows();i++) {
     Ai[i][i] = 1.;
   }
@@ -265,7 +206,9 @@ void invert(anpi::Matrix<T>& A, anpi::Matrix<T>& Ai){
   solve(A,Ai,Ai);
 }
 
-
+//Metodo auxiliar par, que permite realizar
+//la reconstruccioin de A.
+//Descomposicion LU para el caso de la reconstrccion
 void lu_reconstruccion( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
      const double tiny = 1.0e-30;
         int n = A.rows();
@@ -289,7 +232,7 @@ void lu_reconstruccion( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
               }
               LU[k][j]=(A[k][j]-sum)/LU[k][k];
            }
-        } 
+        }
 
 } 
 
