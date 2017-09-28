@@ -20,71 +20,96 @@ template<typename T>
 class lucrout
 {
 public:
+
+    std::vector<T> indx;
+    
     //Permite realizar la decomposicion utlizando el metodo de Crout.
     // A es la matriz de coefienciente del sistema
     // En el LU se almace la matriz L y la U
     void lu( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
-        const double tiny = 1.0e-30;
-        int n = A.rows();
-        T sum = 0;    
-        for(int k=0;k<n;++k){ //Se forma la parte L
-           for(int i=k;i<n;++i){
-               sum=0.;
-              for(int p=0;p<k;++p){
 
-                  sum+= LU[i][p] * LU[p][k];
-              }
-              LU[i][k]= A[i][k]-sum;
-           }
-           for(int j=k+1;j<n;++j){//Se forma la parte U
-               sum=0.;
-              for(int p=0;p<k;++p){
-                sum+=LU[k][p]*LU[p][j];
-              }
-              if(LU[k][k]== 0.0){
-                LU[k][k] = tiny;
-              }
-              LU[k][j]=(A[k][j]-sum)/LU[k][k];
-           }
-        }
-    /*  int n = A.rows();
-      for (int j = 2; j < n; ++j){
-        LU[1][j] = LU[1][j]/LU[1][1];
-      }
-      double suma ;
-      for (int j = 2; j < n-1; ++j){
+      ////////////////////////////************************************/////////////////////
+        const double TINY=1.0e-40;
+        LU = A;
+        int n = A.rows();
+        int i,imax,j,k;
+        double big,temp;
+        std::vector <double> vv(n);
+        double d = 1.0; 
         
-        for (int i = j; i < n; ++i){
-         suma = 0;
-          for (int k = 1; k < j-1; ++k){
-            suma=suma+LU[i][j]*LU[j][k];
+       // std::vector <double> indx(n); //vector 
+        //indx.resize(n);
+
+        for (i=0;i<n;i++) {
+          big=0.0;
+          for (j=0;j<n;j++){
+
+            if ((temp=std::abs(LU[i][j])) > big){
+              big = temp;
+            }
           }
-          LU[i][j] = LU[i][j] - suma;
-        }
-        for (int k = j+1; k < n; ++k){
-          suma=0;
-          for (int i = 1; i < j-1; ++i){
-            suma=suma+LU[j][i]*LU[i][k];
+          if (big == 0.0){ 
+            throw("Singular matrix in LUdcmp");
           }
-          LU[j][k] = (LU[j][k]-suma)/LU[j][j];
+          vv[i]=1.0/big;
         }
-      }
-      for (int k = 1; k < n-1; ++k){
-        suma = suma + LU[n-1][k]*LU[k][n-1];
-      }
-      LU[n-1][n-1] = LU[n-1][n-1]-suma;*/
-      
+
+        for (k=0; k<n; k++) { 
+
+          big=0.0;
+         // imax=k;          
+          for (i = k; i<n; i++) {
+
+            temp = vv[i]*std::abs(LU[i][k]);
+            if (temp > big) {
+              big=temp;
+              imax=i;
+            }
+          }
+          if (k != imax) {
+            for (j=0;j<n;j++) {
+
+              temp=LU[imax][j];
+              LU[imax][j]=LU[k][j];
+              LU[k][j]=temp;
+            }
+            d = -d;
+            vv[imax]=vv[k];
+          }
+          indx[k]=imax;
+
+          if (LU[k][k] == 0.0){ 
+            LU[k][k]=TINY;
+          }
+          for ( i=k+1;i<n;i++) {
+
+            temp=LU[i][k] /= LU[k][k];
+            for (int j=k+1;j<n;j++){
+              LU[i][j] -= temp*LU[k][j];
+            }
+          }
+        }
+
+        //std::cout<<"deter: "<<det(LU)<<std::endl;
+    
+
+      ////////////////////*************************************///////////////////////////
+
+
+
+
+     
 
     }
 
     //Permite encontrar la solucion a un sistema de ecuaciones dado.
-    bool solveLU(anpi::Matrix<T>& A, std::vector<T>& x, const std::vector<T>& b){
+   /* bool solveLU(anpi::Matrix<T>& A, std::vector<T>& x, const std::vector<T>& b){
 
         anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
 
         lu(A,LU);// Se descompone la matrix
-       std::cout<<"LU"<<std::endl;
-        LU.printmatrix();
+       //std::cout<<"LU"<<std::endl;
+        //LU.printmatrix();
 
 
         solveCrout(A.rows(),LU,b,x);// se realiza la sustitucion de variables
@@ -111,7 +136,7 @@ public:
           }
           x[i]=(y[i]-sum);
        }
-   }
+   }*/
    //Permite reeconstruir la matrix A, a partir de su descomposicion LU.
    //Ademas se obtiene la norma de la diferencia entre la matrix A y su reconstruccion
    T testLU(anpi::Matrix<T>& A, anpi::Matrix<T>& LU){
@@ -157,6 +182,117 @@ public:
        }
        return std::sqrt(sum);
    }
+
+  /*double det(anpi::Matrix<T>& LU){
+    double dd = d;
+    for (int i=0;i<LU.rows();i++){
+      dd *= LU[i][i];
+    }
+    return dd;
+  }*/
+
+  //Solucion de sistema de ecuaciones 
+  void solveLU(anpi::Matrix<T>& A, std::vector<T>& x, std::vector<T>& b){
+    int i,ii=0,ip,j;
+    int n = b.size();
+    double sum;
+
+    anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
+
+    lu(A,LU);// Se descompone la matrix
+
+
+    if (b.size() != n || x.size() != n){
+      throw("LUdcmp::solve bad sizes");
+    }
+    for (i=0;i<n;i++){
+     x[i] = b[i];
+    }
+    for (i=0;i<n;i++) {
+      ip=indx[i];
+      sum=x[ip];
+      x[ip]=x[i];
+      if (ii != 0){
+        for (j=ii-1;j<i;j++){
+         sum -= LU[i][j]*x[j];
+        }
+      }
+      else if (sum != 0.0){
+        ii=i+1;
+      }
+      x[i]=sum;
+    }
+    for (i=n-1;i>=0;i--) {
+      sum=x[i];
+      for (j=i+1;j<n;j++){
+        sum -= LU[i][j]*x[j];
+      }
+      x[i]=sum/LU[i][i];
+    }
+  }
+//solve con matrices
+void solve(anpi::Matrix<T>& A,anpi::Matrix<T>& b, anpi::Matrix<T>& x){
+
+  //anpi::Matrix<T> LU(A.rows(),A.rows(),0.0);// se crea la metrix LU
+
+  //lu(A,LU);// Se descompone la matrix
+
+  int n = b.rows();
+  int i,j,m=b.cols();
+  if (b.rows() != n || x.rows() != n || b.cols() != x.cols()){
+    throw("LUdcmp::solve bad sizes");
+  }
+  std::vector <T> xx(n);
+  indx = xx; 
+  for (j=0;j<m;j++) {
+    for (i=0;i<n;i++){
+     xx[i] = b[i][j];
+    }
+    solveLU(A,xx,xx);
+    for (i=0;i<n;i++){ 
+      x[i][j] = xx[i];
+    }
+  }
+}
+
+void invert(anpi::Matrix<T>& A, anpi::Matrix<T>& Ai){
+  int i,j;
+ // ainv.resize(n,n);
+  for (i=0;i<A.rows();i++) {
+    Ai[i][i] = 1.;
+  }
+
+  solve(A,Ai,Ai);
+}
+
+
+void lu_reconstruccion( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
+     const double tiny = 1.0e-30;
+        int n = A.rows();
+        T sum = 0;    
+        for(int k=0;k<n;++k){ //Se forma la parte L
+           for(int i=k;i<n;++i){
+               sum=0.;
+              for(int p=0;p<k;++p){
+
+                  sum+= LU[i][p] * LU[p][k];
+              }
+              LU[i][k]= A[i][k]-sum;
+           }
+           for(int j=k+1;j<n;++j){//Se forma la parte U
+               sum=0.;
+              for(int p=0;p<k;++p){
+                sum+=LU[k][p]*LU[p][j];
+              }
+              if(LU[k][k]== 0.0){
+                LU[k][k] = tiny;
+              }
+              LU[k][j]=(A[k][j]-sum)/LU[k][k];
+           }
+        } 
+
+} 
+
 };
 
 #endif
