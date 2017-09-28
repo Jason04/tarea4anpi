@@ -1,30 +1,30 @@
-Running 9 test cases...
+Running 10 test cases...
 Entering test suite "Suites"
-Entering test suite "descomposicionLU"
+Entering test suite "Reconstruccion_norma_Matriz_A"
+Entering test case "testQR1"
+Leaving test case "testQR1"; testing time: 697mks
+Entering test case "testNormaQR1"
+Leaving test case "testNormaQR1"; testing time: 94mks
 Entering test case "testLU1"
-Leaving test case "testLU1"; testing time: 318mks
-Entering test case "testLU2"
-unittest.cpp(27): error in "testLU2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
-Leaving test case "testLU2"; testing time: 330mks
-Entering test case "testLU3"
-Leaving test case "testLU3"; testing time: 232mks
-Leaving test suite "descomposicionLU"
-Entering test suite "reconstruccion"
-Entering test case "testreconstruccion1"
-Leaving test case "testreconstruccion1"; testing time: 218mks
-Entering test case "testreconstruccion2"
-unittest.cpp(60): error in "testreconstruccion2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
-Leaving test case "testreconstruccion2"; testing time: 284mks
-Entering test case "testreconstruccion3"
-Leaving test case "testreconstruccion3"; testing time: 228mks
-Leaving test suite "reconstruccion"
-Entering test suite "norma"
-Entering test case "testnorma1"
-Leaving test case "testnorma1"; testing time: 216mks
-Entering test case "testnorma2"
-unittest.cpp(93): error in "testnorma2": difference{1.07644e-07} between f1{567.010132} and result * result{567.010193} exceeds 1e-09
-Leaving test case "testnorma2"; testing time: 301mks
-Entering test case "testnorma3"
-Leaving test case "testnorma3"; testing time: 118mks
-Leaving test suite "norma"
+Leaving test case "testLU1"; testing time: 167mks
+Entering test case "testNormaLU1"
+Leaving test case "testNormaLU1"; testing time: 79mks
+Leaving test suite "Reconstruccion_norma_Matriz_A"
+Entering test suite "Reconstruccion_norma_Matriz_B"
+Entering test case "testQR1"
+Leaving test case "testQR1"; testing time: 172mks
+Entering test case "testNormaQR1"
+Leaving test case "testNormaQR1"; testing time: 89mks
+Entering test case "testLU1"
+Leaving test case "testLU1"; testing time: 98mks
+Entering test case "testNormaLU1"
+Leaving test case "testNormaLU1"; testing time: 103mks
+Leaving test suite "Reconstruccion_norma_Matriz_B"
+Entering test suite "Vector_Solucion"
+Entering test case "testsolveQR"
+Leaving test case "testsolveQR"; testing time: 94mks
+Entering test case "testsolveLU"
+Para evaluar los resultados obtenidos ir al archivo test_result.txt
+Leaving test case "testsolveLU"; testing time: 115mks
+Leaving test suite "Vector_Solucion"
 Leaving test suite "Suites"
