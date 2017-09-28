@@ -28,7 +28,7 @@ class test{
 		    double norma = 0.0;
 		    norma = QR.testQR(A, Ar);
 
-		    std::cout<<"**********TEST QR1 A4x4 START**********"<<std::endl;
+		    std::cout<<"**********TEST QR1 A3x3 START**********"<<std::endl;
 		    std::cout<<"A matrix"<<std::endl;
 		    A.printmatrix();
 		    std::cout<<std::endl;
