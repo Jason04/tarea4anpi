@@ -19,7 +19,7 @@ int main(){
 	/* Pruebas: Descomposicióm LU, Método de Crout*/
     //t1.testLU1();
     //t1.testLU2();
-    t1.testLU1();
+    t1.testLU3();
 
 
     /*PRUEBAS DE QR POR HOUSEHOLDER
