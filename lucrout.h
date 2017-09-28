@@ -27,6 +27,8 @@ public:
     // A es la matriz de coefienciente del sistema
     // En el LU se almace la matriz L y la U
     void lu( anpi::Matrix<T>& A, anpi::Matrix<T>& LU ){
+       std::vector <float> x(A.rows()); //vector x
+       indx = x;                        //Se inicializa el vector indx
 
       ////////////////////////////************************************/////////////////////
         const double TINY=1.0e-40;
@@ -139,7 +141,7 @@ public:
    }*/
    //Permite reeconstruir la matrix A, a partir de su descomposicion LU.
    //Ademas se obtiene la norma de la diferencia entre la matrix A y su reconstruccion
-   T testLU(anpi::Matrix<T>& A, anpi::Matrix<T>& LU){
+   T testLU(anpi::Matrix<T>& A, anpi::Matrix<T>& LU, anpi::Matrix<T>& Ar){
        int n = A.rows();
        //se crea la matrix para reecontruir
        anpi::Matrix<T> AReconstruida(n,n,0.0);// Create matrix nxm
@@ -159,9 +161,7 @@ public:
              }
 
           }
-       //Se muestra la matrix reeconstruida
-      std::cout<<"Reconstruccion matriz A:"<<std::endl;
-      AReconstruida.printmatrix();
+      Ar = AReconstruida;
 
       return norma(A,AReconstruida);
    }

@@ -2,5 +2,5 @@
 2) sudo ./exe
 
 //Compilar y correr las unit test con boost
-3) sudo g++ -o test unittest.cpp -lboost_unit_test_framework
+3) sudo g++ -std=c++11 -o test unittest.cpp -lboost_unit_test_framework
 4) sudo ./test --log_level=test_suite > testunitresult.txt
