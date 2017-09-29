@@ -248,9 +248,10 @@ class test{
               }
        		 //Prueba de resonstruccion       
         	anpi::Matrix<float> LU(A.rows(),A.cols(),0.0);// Create LU matrix
+        	anpi::Matrix<float> Ar(A.rows(),A.rows(),0.0);
         	CLU.lu_reconstruccion(A,LU);
         	//Verifiacion de funciones
-      	 	float norma = CLU.testLU( A, LU);
+      	 	float norma = CLU.testLU( A, LU, Ar);
        		std::cout<<"Norma de la diferencia entre A y su reconstruccion:"<<std::endl;
        		//Se muestra la norma de la diferencia entre la matrix A y su reconstruccion
        		std::cout<<"       Norma = "<<norma<<std::endl;
@@ -387,7 +388,8 @@ class test{
         	anpi::Matrix<float> LU(A.rows(),A.cols(),0.0);// Create LU matrix
         	CLU.lu(A,LU);
         	//Verifiacion de funciones
-      	 	float norma = CLU.testLU( A, LU);
+        	anpi::Matrix<float> Ar(A.rows(),A.rows(),0.0);
+      	 	float norma = CLU.testLU( A, LU,Ar);
        		std::cout<<"Norma de la diferencia entre A y su reconstruccion:"<<std::endl;
        		//Se muestra la norma de la diferencia entre la matrix A y su reconstruccion
        		std::cout<<"       Norma = "<<norma<<std::endl;
