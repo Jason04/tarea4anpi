@@ -1,30 +1,33 @@
-Running 10 test cases...
+Running 11 test cases...
 Entering test suite "Suites"
 Entering test suite "Reconstruccion_norma_Matriz_A"
 Entering test case "testQR1"
-Leaving test case "testQR1"; testing time: 697mks
+Leaving test case "testQR1"; testing time: 1975mks
 Entering test case "testNormaQR1"
-Leaving test case "testNormaQR1"; testing time: 94mks
+Leaving test case "testNormaQR1"; testing time: 219mks
 Entering test case "testLU1"
-Leaving test case "testLU1"; testing time: 167mks
+Leaving test case "testLU1"; testing time: 516mks
 Entering test case "testNormaLU1"
-Leaving test case "testNormaLU1"; testing time: 79mks
+Leaving test case "testNormaLU1"; testing time: 203mks
 Leaving test suite "Reconstruccion_norma_Matriz_A"
 Entering test suite "Reconstruccion_norma_Matriz_B"
 Entering test case "testQR1"
-Leaving test case "testQR1"; testing time: 172mks
+Leaving test case "testQR1"; testing time: 141mks
 Entering test case "testNormaQR1"
-Leaving test case "testNormaQR1"; testing time: 89mks
+Leaving test case "testNormaQR1"; testing time: 75mks
 Entering test case "testLU1"
-Leaving test case "testLU1"; testing time: 98mks
+Leaving test case "testLU1"; testing time: 97mks
 Entering test case "testNormaLU1"
-Leaving test case "testNormaLU1"; testing time: 103mks
+Leaving test case "testNormaLU1"; testing time: 75mks
 Leaving test suite "Reconstruccion_norma_Matriz_B"
-Entering test suite "Vector_Solucion"
+Entering test suite "test_solucion_ecuaciones"
 Entering test case "testsolveQR"
-Leaving test case "testsolveQR"; testing time: 94mks
+Leaving test case "testsolveQR"; testing time: 86mks
 Entering test case "testsolveLU"
-Para evaluar los resultados obtenidos ir al archivo test_result.txt
-Leaving test case "testsolveLU"; testing time: 115mks
-Leaving test suite "Vector_Solucion"
+Leaving test case "testsolveLU"; testing time: 101mks
+Leaving test suite "test_solucion_ecuaciones"
+Entering test suite "test_matriz_inversa"
+Entering test case "testmatrizinversa"
+Leaving test case "testmatrizinversa"; testing time: 240mks
+Leaving test suite "test_matriz_inversa"
 Leaving test suite "Suites"

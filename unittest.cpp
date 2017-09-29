@@ -10,7 +10,7 @@ Alumnos:
 	Gabriel Alfaro Herrera
 	Jason Salazar Gonzalez
 */
-#define BOOST_TEST_DYN_LINK
+//#define BOOST_TEST_DYN_LINK  
 #define BOOST_TEST_MODULE Suites
 #include <boost/test/unit_test.hpp>
 #include <cmath>
@@ -37,6 +37,18 @@ anpi::Matrix<float> B = {{1.f/2.f, 1.f/3.f, 1.f/4.f, 1.f/5.f, 1.f/6.f},
 						{1.f/6.f, 1.f/7.f, 1.f/8.f, 1.f/9.f, 1.f/10.f}};
 
 anpi::Matrix<float> C = {{1,0,1},{1,2,0},{1,0,3}};
+
+
+anpi::Matrix<float> Ai_esperada = {{-0.02294,-0.00179,0.01628,-0.03672,-0.06059,-0.04111,-0.08813,-0.15242,-0.00646,-0.09421},
+		                           {-0.01079,-0.02312,-0.03348,0.11708,-0.04115,0.06669,-0.02869,0.15726,-0.00476,0.02300},
+		                           {0.02319,-0.05603 ,0.05614,0.04003,0.05614,0.07864,0.06638,0.11006,-0.02953,0.05613},
+		                           {-0.06560,0.03835,-0.01762,0.17885,-0.07297,0.00183,-0.03121,0.13136,-0.00827,-0.00476},
+		                           {0.12627,-0.03849,-0.02007,-0.16924,0.02821,-0.01539,0.11684,-0.08590,-0.01858,0.05544},
+		                           {-0.11332, -0.03667,-0.05605,0.16861,-0.04584,-0.00332,-0.00651,0.22403,-0.00691, 0.10668},
+		                           {-0.01345,-0.03086,0.00563, 0.06143,-0.02489,0.01509,-0.05074,0.02645,-0.06725,0.02365},
+		                           {-0.11273,0.04826,0.04978,0.11086,-0.01177,0.02443,-0.03733,0.12064,-0.00324,-0.02889},
+		                           {-0.12649,-0.02749,-0.05453,0.19988,-0.02798,0.01411,-0.08948,0.26736,-0.03212,0.01250},
+		                           {0.04789,0.05374,-0.03462,-0.07241,-0.00206,0.03683,0.03294,-0.03868,0.00015, 0.00059}} ;
 
 /*Pruebas unitarias para el metodo de reconstrucción de matrices por LU y QR*/
 BOOST_AUTO_TEST_SUITE(Reconstruccion_norma_Matriz_A)
@@ -115,7 +127,7 @@ BOOST_AUTO_TEST_SUITE(Reconstruccion_norma_Matriz_B)
 BOOST_AUTO_TEST_SUITE_END()
 
 //Prubas sobre solucion del sistema de ecuaciones
-BOOST_AUTO_TEST_SUITE(Vector_Solucion)
+BOOST_AUTO_TEST_SUITE(test_solucion_ecuaciones)
 
 	//Prueba 1 descomposicion QR
 	BOOST_AUTO_TEST_CASE(testsolveQR){
@@ -141,3 +153,20 @@ BOOST_AUTO_TEST_SUITE(Vector_Solucion)
 	}	
 BOOST_AUTO_TEST_SUITE_END()
 
+//Prubas para calculo de matriz inversa
+BOOST_AUTO_TEST_SUITE(test_matriz_inversa)
+
+	//Prueba 1 matriz inversa
+	BOOST_AUTO_TEST_CASE(testmatrizinversa){
+		anpi::Matrix<float> Ai(A.rows(),A.rows(),0.0);
+		lucrout<float>lu;
+		lu.invert(A, Ai);
+		for (int i = 0; i < Ai.rows(); ++i){
+			for (int j = 0; j < Ai.rows(); ++j){
+
+				BOOST_CHECK(std::abs(Ai_esperada[i][j]-Ai[i][j]) < 1);
+			}
+		}
+	}
+		
+BOOST_AUTO_TEST_SUITE_END()

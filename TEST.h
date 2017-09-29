@@ -249,6 +249,7 @@ class test{
               }
        		 //Prueba de resonstruccion       
         	anpi::Matrix<float> LU(A.rows(),A.cols(),0.0);// Create LU matrix
+        	anpi::Matrix<float> Ar(A.rows(),A.rows(),0.0);
         	CLU.lu_reconstruccion(A,LU);
         	//Verifiacion de funciones
       	 	float norma = CLU.testLU( A, LU, Ar);
